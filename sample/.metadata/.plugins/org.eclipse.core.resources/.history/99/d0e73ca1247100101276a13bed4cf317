@@ -1,0 +1,15 @@
+package sample;
+import java.util.ArrayList;
+public class EmployList {
+
+	public static void main(String[] args) {
+		ArrayList<Employee> emplist = new ArrayList<Employee>();
+		emplist.add(new Employee(101,"sutherland",5000));
+		emplist.add(new Employee(201,"james gosling",8000));
+		for(Employee emp : emplist)
+			System.out.println(getcode()+" "+getEmpname() + " "+ getsalary());
+		
+
+	}
+
+}

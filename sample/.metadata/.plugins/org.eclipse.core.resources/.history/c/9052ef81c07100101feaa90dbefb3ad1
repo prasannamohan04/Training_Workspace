@@ -1,0 +1,24 @@
+package sample;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map.Entry;
+
+public class BookInfo {
+
+	public static void main(String[] args) {
+		HashMap<Integer,Book> bkif = new HashMap<Integer,Book>();
+		bkif.put(1,new Book(01,"one piece","oda",2500));
+		bkif.put(2,new Book(02,"Attack On Titan","doly",2000));
+		bkif.put(3,new Book(03,"bleach","yaba",1500));
+		System.out.println(bkif);
+
+        Set<Entry<Integer, Book>> set = bkif.entrySet();
+        Iterator<Entry<Integer, Book>> itr = set.iterator();
+        while(itr.hasNext())
+        	System.out.println(itr.next());
+        
+	}
+
+}

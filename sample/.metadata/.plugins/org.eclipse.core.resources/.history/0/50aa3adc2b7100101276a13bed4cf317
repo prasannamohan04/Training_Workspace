@@ -1,0 +1,27 @@
+package sample;
+import java.util.Collections;
+import java.util.ArrayList;
+
+
+public class Array2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ArrayList<Employee> emplist = new ArrayList<Employee>();
+		emplist.add(new Employee(101,"sutherland",5000));
+		emplist.add(new Employee(201,"james gosling",8000));
+		emplist.add(new Employee(302,"reactjs",7000));
+		Collections.sort(emplist);
+		for(Employee emp :emplist)
+			System.out.println(emp);
+		System.out.println();
+		Collections.sort(emplist,(emp1,emp2)->{
+			return emp1.getEmpname().compareTo(emp2.getEmpname());
+		});
+		for(Employee emp : emplist)
+			System.out.println(emp.getEmpname());
+
+
+	}
+
+}

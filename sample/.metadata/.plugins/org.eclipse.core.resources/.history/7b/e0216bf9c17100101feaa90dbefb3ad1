@@ -1,0 +1,27 @@
+package sample;
+
+public class Book {
+	public int id;
+	public String title,author;
+	public int price;
+	public Book(int id, String title, String author, int price) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.price = price;
+		
+	}
+	@Override
+	public String toString() {
+	    return "Title : " + title + "\n"
+	         + "Author: " + author + "\n"
+	         + "ID    : " + id + "\n"
+	         + "Price : " + price + "\n";
+	}
+
+}
+  
+
+	
+

@@ -1,0 +1,10 @@
+package com.sutherland.library.service;
+
+import org.springframework.http.ResponseEntity;
+
+import com.sutherland.library.entity.Userr;
+
+public interface UserService {
+	ResponseEntity<String> addUser(Userr userr);
+    ResponseEntity<String> loginValidate(String username, String password);
+}

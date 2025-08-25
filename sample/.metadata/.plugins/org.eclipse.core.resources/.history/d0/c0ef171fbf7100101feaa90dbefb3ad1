@@ -1,0 +1,21 @@
+package sample;
+
+public class Book {
+	public int id;
+	public String title,author;
+	public int price;
+	public Book(int id, String title, String author, int price) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.price = price;
+	public String toString() {
+	       return "Book [ID=" + id + ", Title=" + title + ", Author=" + author + ", Price=" + price + "]";
+	    }
+	}
+	}
+
+}
+	
+

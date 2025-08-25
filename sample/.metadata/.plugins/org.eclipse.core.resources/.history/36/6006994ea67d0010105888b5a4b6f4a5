@@ -1,0 +1,52 @@
+package com.sutherland.library.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.sutherland.library.entity.User;
+import com.sutherland.library.exceptions.UserAlreadyExistsException;
+import com.sutherland.library.repo.UserRepo;
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepo repo;
+	
+	@Override
+    public ResponseEntity<String> addUser(User user) {
+        Optional<User> existing = repo.findById(user.getUsername());
+        if (existing.isPresent()) {
+        	throw new UserAlreadyExistsException("Username already exists");
+        }
+
+        // validate role before saving
+        if (!("admin".equalsIgnoreCase(user.getRole()) || "user".equalsIgnoreCase(user.getRole()))) {
+            return new ResponseEntity<>("Invalid role. Must be 'admin' or 'user'", HttpStatus.BAD_REQUEST);
+        }
+
+        repo.save(user);
+        return new ResponseEntity<>("User added successfully with role: " + user.getRole(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> loginValidate(String username, String password) {
+        User user = repo.findByUsernameAndPassword(username, password);
+        if (user == null) {
+            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+        }
+
+        // return role in response
+        if ("admin".equalsIgnoreCase(user.getRole())) {
+            return new ResponseEntity<>("Login successful. Welcome Admin!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Login successful. Welcome User!", HttpStatus.OK);
+        }
+    }
+	
+	
+}

@@ -1,0 +1,12 @@
+package corejava;
+
+import java.util.Scanner;
+
+public class CheckDaysInMonth {
+
+    public static void main(String[] args) {
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter first 3 letters of any month : ");
+    	String monthInput
+    }
+}

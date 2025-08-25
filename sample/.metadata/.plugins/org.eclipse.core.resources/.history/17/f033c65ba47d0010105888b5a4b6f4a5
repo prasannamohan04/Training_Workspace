@@ -1,0 +1,5 @@
+package com.sutherland.library.controller;
+
+public class UserController {
+
+}

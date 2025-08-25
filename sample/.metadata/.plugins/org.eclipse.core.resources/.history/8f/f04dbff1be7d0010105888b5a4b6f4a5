@@ -1,0 +1,55 @@
+package com.sutherland.library.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.sutherland.library.entity.Userr;
+import com.sutherland.library.exceptions.InvalidCredentialsException;
+import com.sutherland.library.exceptions.InvalidRoleException;
+import com.sutherland.library.exceptions.UserAlreadyExistsException;
+import com.sutherland.library.repo.UserRepo;
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepo repo;
+	
+	
+	@Override
+    public ResponseEntity<String> addUser(Userr user) {
+        // username must be unique
+        Optional<Userr> existing = repo.findById(user.getUsername());
+        if (existing.isPresent()) {
+            throw new UserAlreadyExistsException("Username already exists: " + user.getUsername());
+        }
+
+        // role validation
+        if (!("admin".equalsIgnoreCase(user.getRole()) || "user".equalsIgnoreCase(user.getRole()))) {
+            throw new InvalidRoleException("Role must be 'admin' or 'user'");
+        }
+
+        repo.save(user);
+        return ResponseEntity.ok("User added successfully with role: " + user.getRole());
+    }
+
+    @Override
+    public ResponseEntity<String> loginValidate(String username, String password) {
+        // username validation
+        Userr user = repo.findById(username).orElseThrow(() -> 
+            new InvalidCredentialsException("Invalid username or password")
+        );
+
+        // password validation
+        if (!user.getPassword().equals(password)) {
+            throw new InvalidCredentialsException("Invalid username or password");
+        }
+
+        // if login success
+        return ResponseEntity.ok("Login successful. Role: " + user.getRole());
+    }
+	
+}
